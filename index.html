@@ -678,7 +678,75 @@ footer .f-right {
 @media (max-width: 600px) {
   .nav-links { display: none; }
 }
- 
+ .thon-shell {
+  min-height: calc(100vh - 10rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.thon-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.thon-btn-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.thon-tab {
+  min-width: 220px;
+  text-align: center;
+}
+
+.thon-tab.active {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.thon-popup {
+  position: absolute;
+  bottom: calc(100% + 0.7rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.8rem;
+  white-space: nowrap;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.thon-popup.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.thon-card {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.thon-card.hidden {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .thon-tab {
+    min-width: 100%;
+  }
+}
 
 </style>
 </head>
@@ -977,24 +1045,40 @@ footer .f-right {
 </div>
 
 <section id="thon-page" class="project-detail hidden">
-  <div class="section-header">
-    <span class="section-num">Leadership</span>
-    <h2 class="section-title">THON Journey</h2>
-  </div>
+  <div class="detail-box thon-shell">
 
-  <div class="detail-box">
-    <div style="display:flex; gap:1rem; margin-bottom:2rem;">
-      <button class="detail-btn" onclick="loadThon('2026')">THON 2026</button>
-      <button class="detail-btn" onclick="loadThon('2027')">THON 2027</button>
-      <button class="detail-btn" onclick="loadThon('2028')">THON 2028</button>
+    <div class="thon-tabs">
+      <div class="thon-btn-wrap">
+        <span class="thon-popup" id="popup2026">For the future!</span>
+        <button class="detail-btn thon-tab" id="thon2026Btn" onclick="loadThon('2026')">
+          THON 2026
+        </button>
+      </div>
+
+      <div class="thon-btn-wrap">
+        <span class="thon-popup" id="popup2027">For the future!</span>
+        <button class="detail-btn thon-tab" id="thon2027Btn" onclick="loadThon('2027')">
+          THON 2027
+        </button>
+      </div>
+
+      <div class="thon-btn-wrap">
+        <span class="thon-popup" id="popup2028">For the future!</span>
+        <button class="detail-btn thon-tab" id="thon2028Btn" onclick="loadThon('2028')">
+          THON 2028
+        </button>
+      </div>
     </div>
 
-    <p class="detail-sub" id="thon-subtitle"></p>
-    <p class="detail-body" id="thon-body"></p>
+    <div class="thon-card" id="thonCard">
+      <p class="detail-sub" id="thon-subtitle"></p>
+      <p class="detail-body" id="thon-body"></p>
+    </div>
 
     <div class="detail-actions">
       <button class="detail-btn" onclick="closeThon()">← Back</button>
     </div>
+
   </div>
 </section>
 
@@ -1143,50 +1227,68 @@ footer .f-right {
   });
 
   function openThonPage() {
-    mainSite.classList.add('hidden');
-    detailSection.classList.add('hidden');
-    if (thonPage) {
-      thonPage.classList.remove('hidden');
-      loadThon('2026');
-    }
-    window.scrollTo(0, 0);
-  }
+  if (!thonPage) return;
+
+  mainSite.classList.add('hidden');
+  detailSection.classList.add('hidden');
+  thonPage.classList.remove('hidden');
+
+  thonSubtitle.textContent = '';
+  thonBody.textContent = '';
+  document.getElementById('thonCard').classList.add('hidden');
+
+  window.scrollTo(0, 0);
+}
 
   function closeThon() {
     goToSection('#experience');
   }
 
  function loadThon(year) {
-  if (!thonSubtitle || !thonBody) return;
-
   const btn2026 = document.getElementById('thon2026Btn');
   const btn2027 = document.getElementById('thon2027Btn');
   const btn2028 = document.getElementById('thon2028Btn');
-  const thonNote = document.getElementById('thon-note');
+
+  const popup2026 = document.getElementById('popup2026');
+  const popup2027 = document.getElementById('popup2027');
+  const popup2028 = document.getElementById('popup2028');
+
+  const thonCard = document.getElementById('thonCard');
+
+  if (!thonSubtitle || !thonBody || !thonCard) return;
 
   [btn2026, btn2027, btn2028].forEach(btn => btn.classList.remove('active'));
-  if (thonNote) thonNote.textContent = '';
+  [popup2026, popup2027, popup2028].forEach(popup => popup.classList.remove('show'));
 
   if (year === '2026') {
     btn2026.classList.add('active');
+    thonCard.classList.remove('hidden');
+
     thonSubtitle.textContent = 'THON 2026 — Second-in-Command';
-    thonBody.textContent = `Served as Second-in-Command for the Rules & Regulations Committee during THON 2026. Oversaw policy enforcement and operations inside the Bryce Jordan Center, worked closely with captains and committee members, led security briefings, and supported portal closures, metal detectors, and pass sweeps.`;
+    thonBody.textContent = `Served as Second-in-Command for the Rules & Regulations Committee during THON 2026. Helped oversee policies and operations at the Bryce Jordan Center, worked closely with captains and committee members, led security briefings, and supported portal closures, metal detectors, and pass sweeps.`;
+
     return;
   }
 
   if (year === '2027') {
-    btn2027.classList.add('active');
-    thonSubtitle.textContent = 'THON 2027';
-    thonBody.textContent = '';
-    if (thonNote) thonNote.textContent = 'For the future!';
+    thonCard.classList.add('hidden');
+    popup2027.classList.add('show');
+
+    setTimeout(() => {
+      popup2027.classList.remove('show');
+    }, 1400);
+
     return;
   }
 
   if (year === '2028') {
-    btn2028.classList.add('active');
-    thonSubtitle.textContent = 'THON 2028';
-    thonBody.textContent = '';
-    if (thonNote) thonNote.textContent = 'For the future!';
+    thonCard.classList.add('hidden');
+    popup2028.classList.add('show');
+
+    setTimeout(() => {
+      popup2028.classList.remove('show');
+    }, 1400);
+
     return;
   }
 }
