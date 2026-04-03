@@ -498,24 +498,53 @@ footer .f-left, footer .f-right {
     <span class="section-num">03 / Projects</span>
     <h2 class="section-title">Selected Work</h2>
   </div>
+
   <div class="proj-grid">
-    <div class="proj-card fade-up">
+    <button class="proj-card proj-button fade-up" data-page="arduino">
       <div class="proj-num">Project 01</div>
       <div class="proj-title">Hydroponics Systems Assembly</div>
-      <div class="proj-desc">Designed and installed an Arduino-based monitoring system to automate real-time pH and salinity tracking for sustainable hydroponic farming.</div>
+      <div class="proj-desc">
+        Designed and installed an Arduino-based monitoring system to automate
+        real-time pH and salinity tracking for sustainable hydroponic farming.
+      </div>
       <span class="proj-tag">Arduino / IoT</span>
-    </div>
-    <div class="proj-card fade-up d1">
+    </button>
+
+    <button class="proj-card proj-button fade-up d1" data-page="cad">
       <div class="proj-num">Project 02</div>
       <div class="proj-title">Fusion 360 CAD Design</div>
-      <div class="proj-desc">Produced multiple complex 3D models and mechanical design projects. Fabricated and showcased physical prototypes using 3D printing.</div>
+      <div class="proj-desc">
+        Produced multiple complex 3D models and mechanical design projects.
+        Fabricated and showcased physical prototypes using 3D printing.
+      </div>
       <span class="proj-tag">CAD / 3D Print</span>
-    </div>
-    <div class="proj-card fade-up d2">
+    </button>
+
+    <button class="proj-card proj-button fade-up d2" data-page="leadership">
       <div class="proj-num">Project 03</div>
       <div class="proj-title">STEM Club — Founder & President</div>
-      <div class="proj-desc">Founded a school-level STEM club, developing and facilitating biweekly educational activities to promote science and technology engagement among peers.</div>
+      <div class="proj-desc">
+        Founded a school-level STEM club, developing and facilitating biweekly
+        educational activities to promote science and technology engagement among peers.
+      </div>
       <span class="proj-tag">Leadership / Education</span>
+    </button>
+  </div>
+</section>
+
+<!-- PROJECT DETAIL PAGE -->
+<section id="project-detail" class="project-detail hidden">
+  <div class="section-header">
+    <span class="section-num">04 / Details</span>
+    <h2 class="section-title" id="detail-title">Project Details</h2>
+  </div>
+
+  <div class="detail-box">
+    <p class="detail-sub" id="detail-subtitle"></p>
+    <p class="detail-body" id="detail-body"></p>
+
+    <div class="detail-actions">
+      <button id="backToProjects" class="detail-btn">← Back to Selected Work</button>
     </div>
   </div>
 </section>
