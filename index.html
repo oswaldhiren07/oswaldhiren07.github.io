@@ -23,8 +23,8 @@
   --mono: 'DM Mono', monospace;
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'DM Sans', sans-serif;
-}
 
+}
 html, body, nav, section, footer,
 #splash, .splash-frame, .splash-frame img,
 .proj-card, .detail-box, .contact-link,
@@ -37,6 +37,7 @@ html, body, nav, section, footer,
     filter 3s ease;
 }
 
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -47,64 +48,46 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
-
-/* THEME TOGGLE */
 .theme-toggle {
-  position: relative;
   border: 1px solid var(--border);
   background: transparent;
-  width: 52px;
-  height: 52px;
+  color: var(--ink);
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
-  font-size: 1.3rem;
+  font-size: 1rem;
   cursor: pointer;
   margin-left: 1rem;
-  overflow: hidden;
-  transition: border-color 3s ease, background-color 3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  transition:
+    transform 2.5s cubic-bezier(0.4, 0, 0.2, 1),
+    color 2.2s ease,
+    background-color 2.2s ease,
+    border-color 2.2s ease;
 }
+/* 🔥 PRESS ANIMATION */
+.theme-toggle.animate {
+  animation: togglePop 0.8s ease;
+}
+
+@keyframes togglePop {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  40% {
+    transform: scale(1.25) rotate(120deg);
+  }
+  70% {
+    transform: scale(1.1) rotate(260deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
 .theme-toggle:hover {
-  transform: scale(1.08);
-  transition: transform 0.2s ease, border-color 3s ease, background-color 3s ease;
+  transform: translateY(-1px);
 }
-.toggle-icon {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
-}
-.toggle-moon {
-  transform: translateY(0) rotate(0deg) scale(1);
-  opacity: 1;
-}
-.toggle-sun {
-  transform: translateY(60px) rotate(-90deg) scale(0.5);
-  opacity: 0;
-}
-body.dark-mode .toggle-moon {
-  transform: translateY(-60px) rotate(90deg) scale(0.5);
-  opacity: 0;
-}
-body.dark-mode .toggle-sun {
-  transform: translateY(0) rotate(0deg) scale(1);
-  opacity: 1;
-}
-
-/* BUTTON PRESS EXPAND */
-button:active,
-.detail-btn:active,
-.proj-button:active,
-.theme-toggle:active,
-.thon-tab:active {
-  transform: scale(1.06);
-  transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
 /* NAV */
 nav {
   position: fixed;
@@ -118,7 +101,7 @@ nav {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
-  transition: background 3s ease, border-color 3s ease;
+  transition: background 0.4s ease, border-color 0.4s ease;
 }
 nav.scrolled { border-bottom-color: var(--border); }
 .nav-logo {
@@ -605,33 +588,55 @@ footer .f-left, footer .f-right {
   pointer-events: none;
   z-index: 1000;
   overflow: hidden;
-  display: none;
 }
 .thon-float-bg span {
   position: absolute;
+  font-size: 1.1rem;
   opacity: 0;
   animation: floatDiamond linear infinite;
 }
-@keyframes floatDiamond {
-  0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
-  10%  { opacity: 0.7; }
-  90%  { opacity: 0.55; }
-  100% { transform: translateY(-130vh) rotate(200deg) scale(1.1); opacity: 0; }
-}
 
-/* DARK MODE */
-body.dark-mode {
-  --white: #0f1115;
-  --off-white: #171a21;
-  --ink: #f5f5f5;
-  --mid: #b2b2b2;
-  --light: #7f7f7f;
-  --accent: #e06a4b;
-  --border: #2a2f38;
-}
-body.dark-mode nav {
-  background: rgba(15, 17, 21, 0.68);
-  border-bottom-color: var(--border);
+.thon-float-bg span:nth-child(1)  { left: 4%;  top: 88%; animation-duration: 18s; animation-delay: 0s; }
+.thon-float-bg span:nth-child(2)  { left: 9%;  top: 76%; animation-duration: 22s; animation-delay: 2s; }
+.thon-float-bg span:nth-child(3)  { left: 14%; top: 92%; animation-duration: 20s; animation-delay: 4s; }
+.thon-float-bg span:nth-child(4)  { left: 19%; top: 68%; animation-duration: 24s; animation-delay: 1s; }
+.thon-float-bg span:nth-child(5)  { left: 24%; top: 84%; animation-duration: 19s; animation-delay: 5s; }
+.thon-float-bg span:nth-child(6)  { left: 29%; top: 73%; animation-duration: 21s; animation-delay: 3s; }
+.thon-float-bg span:nth-child(7)  { left: 34%; top: 90%; animation-duration: 23s; animation-delay: 6s; }
+.thon-float-bg span:nth-child(8)  { left: 39%; top: 79%; animation-duration: 17s; animation-delay: 2s; }
+.thon-float-bg span:nth-child(9)  { left: 44%; top: 87%; animation-duration: 25s; animation-delay: 7s; }
+.thon-float-bg span:nth-child(10) { left: 49%; top: 71%; animation-duration: 20s; animation-delay: 1s; }
+.thon-float-bg span:nth-child(11) { left: 54%; top: 95%; animation-duration: 26s; animation-delay: 4s; }
+.thon-float-bg span:nth-child(12) { left: 59%; top: 77%; animation-duration: 18s; animation-delay: 2s; }
+.thon-float-bg span:nth-child(13) { left: 64%; top: 89%; animation-duration: 22s; animation-delay: 5s; }
+.thon-float-bg span:nth-child(14) { left: 69%; top: 69%; animation-duration: 19s; animation-delay: 3s; }
+.thon-float-bg span:nth-child(15) { left: 74%; top: 93%; animation-duration: 24s; animation-delay: 6s; }
+.thon-float-bg span:nth-child(16) { left: 79%; top: 75%; animation-duration: 21s; animation-delay: 1s; }
+.thon-float-bg span:nth-child(17) { left: 84%; top: 86%; animation-duration: 23s; animation-delay: 4s; }
+.thon-float-bg span:nth-child(18) { left: 89%; top: 72%; animation-duration: 18s; animation-delay: 2s; }
+.thon-float-bg span:nth-child(19) { left: 94%; top: 91%; animation-duration: 25s; animation-delay: 7s; }
+.thon-float-bg span:nth-child(20) { left: 12%; top: 58%; animation-duration: 20s; animation-delay: 3s; }
+.thon-float-bg span:nth-child(21) { left: 31%; top: 55%; animation-duration: 26s; animation-delay: 5s; }
+.thon-float-bg span:nth-child(22) { left: 50%; top: 60%; animation-duration: 19s; animation-delay: 1s; }
+.thon-float-bg span:nth-child(23) { left: 68%; top: 57%; animation-duration: 22s; animation-delay: 4s; }
+.thon-float-bg span:nth-child(24) { left: 82%; top: 53%; animation-duration: 24s; animation-delay: 6s; }
+.thon-float-bg span:nth-child(25) { left: 96%; top: 61%; animation-duration: 18s; animation-delay: 2s; }
+@keyframes floatDiamond {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.9);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-40vh) translateX(8px) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-6px) scale(0.95);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 900px) {
@@ -652,7 +657,61 @@ body.dark-mode nav {
   .thon-hero-img { height: 42vh; }
   .thon-gallery img { height: 240px; }
 }
-@media (max-width: 600px) { .nav-links { display: none; } }
+
+body.dark-mode {
+  --white: #0f1115;
+  --off-white: #171a21;
+  --ink: #f5f5f5;
+  --mid: #b2b2b2;
+  --light: #7f7f7f;
+  --accent: #e06a4b;
+  --border: #2a2f38;
+}
+body.dark-mode .theme-toggle {
+  transform: rotate(540deg);
+}
+/* 🔥 HAMBURGER MENU */
+.nav-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+
+  .nav-toggle {
+    display: block;
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background: var(--white);
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    display: none;
+    z-index: 9998;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+body.dark-mode nav {
+  background: rgba(15, 17, 21, 0.92);
+  border-bottom-color: var(--border);
+}
+body.dark-mode .nav-links {
+  background: var(--white);
+}
 </style>
 </head>
 
@@ -660,6 +719,10 @@ body.dark-mode nav {
 
 <nav id="nav">
   <a class="nav-logo" href="#splash">D.O.</a>
+
+  
+  <button class="nav-toggle" id="navToggle">☰</button>
+
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -667,16 +730,13 @@ body.dark-mode nav {
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button id="themeToggle" class="theme-toggle">
-    <span class="toggle-icon toggle-moon">🌙</span>
-    <span class="toggle-icon toggle-sun">☀️</span>
-  </button>
+  <button id="themeToggle" class="theme-toggle">🌙</button>
 </nav>
-
 <div id="main-site">
 
   <!-- SPLASH -->
   <div id="splash">
+
     <div class="splash-frame">
       <img src="images/profile.jpg" alt="Dhiren Oswal" />
     </div>
@@ -714,28 +774,20 @@ body.dark-mode nav {
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <div class="section-header fade-up">
-      <span class="section-num">02 / Experience</span>
-      <h2 class="section-title">Work History</h2>
-    </div>
-
-    <div class="exp-list">
-      <div class="exp-item fade-up">
-        <div class="exp-left">
-          <div class="exp-left">
-            <img src="images/companylogoo.png" class="exp-logo" alt="OD Hydroponics Logo">
-          </div>
-          <div class="exp-date">Oct 2022 – Jun 2025</div>
-          <div class="exp-company">OD.Hydroponics</div>
-          <div class="exp-loc">Ludhiana, India</div>
-        </div>
-        <div class="exp-right">
-          <div class="exp-role">Founder</div>
-          <ul class="exp-bullets">
-            <li>Established a sustainable agriculture initiative focused on hydroponic farming, directing all research, system design, and daily operations.</li>
-            <li>Engineered nutrient solution protocols and assembled functional hydroponic systems, cultivating multiple plant varieties across different growing techniques.</li>
-            <li>Led community outreach and educational sessions to promote awareness of sustainable, soil-free farming methods.</li>
-          </ul>
+    <div class="exp-item fade-up">
+  <div class="exp-left">
+    <img src="images/companylogoo.png" class="exp-logo" alt="OD Hydroponics Logo">
+    <div class="exp-date">Oct 2022 – Jun 2025</div>
+    <div class="exp-company">OD.Hydroponics</div>
+    <div class="exp-loc">Ludhiana, India</div>
+  </div>
+  <div class="exp-right">
+    <div class="exp-role">Founder</div>
+    <ul class="exp-bullets">
+      <li>Established a sustainable agriculture initiative focused on hydroponic farming, directing all research, system design, and daily operations.</li>
+      <li>Engineered nutrient solution protocols and assembled functional hydroponic systems, cultivating multiple plant varieties across different growing techniques.</li>
+      <li>Led community outreach and educational sessions to promote awareness of sustainable, soil-free farming methods.</li>
+    </ul>
         </div>
       </div>
 
@@ -995,28 +1047,25 @@ body.dark-mode nav {
 </section>
 
 <script>
-  // Generate floating diamonds
-  (function() {
-    const bg = document.getElementById('thonFloatBg');
-    if (!bg) return;
-    for (let i = 0; i < 60; i++) {
-      const span = document.createElement('span');
-      span.textContent = '💠';
-      span.style.left = (Math.random() * 100) + 'vw';
-      span.style.top = (100 + Math.random() * 20) + 'vh';
-      span.style.animationDuration = (14 + Math.random() * 18) + 's';
-      span.style.animationDelay = '-' + (Math.random() * 30) + 's';
-      span.style.fontSize = (0.7 + Math.random() * 1.1) + 'rem';
-      bg.appendChild(span);
-    }
-  })();
+    (function() {
+  const bg = document.getElementById('thonFloatBg');
+  if (!bg) return;
+  for (let i = 0; i < 60; i++) {
+    const span = document.createElement('span');
+    span.textContent = '💠';
+    span.style.left = (Math.random() * 100) + 'vw';
+    span.style.top = (100 + Math.random() * 20) + 'vh';
+    span.style.animationDuration = (14 + Math.random() * 18) + 's';
+    span.style.animationDelay = '-' + (Math.random() * 30) + 's';
+    span.style.fontSize = (0.7 + Math.random() * 1.1) + 'rem';
+    bg.appendChild(span);
+  }
+})();
 
-  // Nav scroll border
   window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // Fade-up observer
   const els = document.querySelectorAll('.fade-up');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1036,6 +1085,7 @@ body.dark-mode nav {
     banner: 'images/thon-banner.jpg',
     logo2026: 'images/thon-2026-logo.png',
     group2026: 'images/thon-group-2026.jpg'
+
   };
 
   const thonBannerImg = document.getElementById('thonBannerImg');
@@ -1118,34 +1168,37 @@ body.dark-mode nav {
   }
 
   function openThonPage() {
-    if (!thonPage) return;
-    mainSite.classList.add('hidden');
-    detailSection.classList.add('hidden');
-    thonPage.classList.remove('hidden');
-    history.pushState({ page: 'thon' }, '', '#thon');
-    if (thonBannerImg) thonBannerImg.src = thonAssets.banner;
-    if (thon2026Logo) thon2026Logo.src = thonAssets.logo2026;
-    if (thon2026GroupImg) thon2026GroupImg.src = thonAssets.group2026;
-    document.getElementById('thon2026Btn').classList.remove('active');
-    document.getElementById('thon2027Btn').classList.remove('active');
-    document.getElementById('thon2028Btn').classList.remove('active');
-    if (thon2026Detail) thon2026Detail.classList.add('hidden');
-    stopThonGallery();
-    window.scrollTo(0, 0);
-    document.getElementById('thonFloatBg').style.display = 'block';
-  }
+  if (!thonPage) return;
+  mainSite.classList.add('hidden');
+  detailSection.classList.add('hidden');
+  thonPage.classList.remove('hidden');
+
+  history.pushState({ page: 'thon' }, '', '#thon');
+
+  if (thonBannerImg) thonBannerImg.src = thonAssets.banner;
+  if (thon2026Logo) thon2026Logo.src = thonAssets.logo2026;
+  if (thon2026GroupImg) thon2026GroupImg.src = thonAssets.group2026;
+  document.getElementById('thon2026Btn').classList.remove('active');
+  document.getElementById('thon2027Btn').classList.remove('active');
+  document.getElementById('thon2028Btn').classList.remove('active');
+  if (thon2026Detail) thon2026Detail.classList.add('hidden');
+  stopThonGallery();
+  window.scrollTo(0, 0);
+  document.getElementById('thonFloatBg').style.display = 'block';
+}
 
   function closeThon() {
-    if (location.hash === '#thon') {
-      history.back();
-      return;
-    }
-    if (thonPage) thonPage.classList.add('hidden');
-    mainSite.classList.remove('hidden');
-    stopThonGallery();
-    document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
-    document.getElementById('thonFloatBg').style.display = 'none';
+  if (location.hash === '#thon') {
+    history.back();
+    return;
   }
+
+  if (thonPage) thonPage.classList.add('hidden');
+  mainSite.classList.remove('hidden');
+  stopThonGallery();
+  document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('thonFloatBg').style.display = 'none';
+}
 
   function loadThon(year) {
     const btn2026 = document.getElementById('thon2026Btn');
@@ -1175,28 +1228,46 @@ body.dark-mode nav {
       setTimeout(() => popup2028.classList.remove('show'), 1400);
     }
   }
-
   window.addEventListener('popstate', () => {
-    if (location.hash === '#thon') {
-      mainSite.classList.add('hidden');
-      detailSection.classList.add('hidden');
-      if (thonPage) thonPage.classList.remove('hidden');
-      document.getElementById('thonFloatBg').style.display = 'block';
-      window.scrollTo(0, 0);
-    } else {
-      if (thonPage) thonPage.classList.add('hidden');
-      detailSection.classList.add('hidden');
-      mainSite.classList.remove('hidden');
-      stopThonGallery();
-      document.getElementById('thonFloatBg').style.display = 'none';
-    }
-  });
+  if (location.hash === '#thon') {
+    mainSite.classList.add('hidden');
+    detailSection.classList.add('hidden');
+    if (thonPage) thonPage.classList.remove('hidden');
+    document.getElementById('thonFloatBg').style.display = 'block';
+    window.scrollTo(0, 0);
+  } else {
+    if (thonPage) thonPage.classList.add('hidden');
+    detailSection.classList.add('hidden');
+    mainSite.classList.remove('hidden');
+    stopThonGallery();
+    document.getElementById('thonFloatBg').style.display = 'none';
+  }
+});
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.querySelector('.nav-links');
 
-  // Theme toggle — moon slides up & out, sun slides up & in
-  const themeToggle = document.getElementById('themeToggle');
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-  });
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+const themeToggle = document.getElementById('themeToggle');
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+
+  // change icon
+  if (document.body.classList.contains('dark-mode')) {
+    themeToggle.textContent = '☀️';
+  } else {
+    themeToggle.textContent = '🌙';
+  }
+
+  // trigger animation
+  themeToggle.classList.add('animate');
+
+  setTimeout(() => {
+    themeToggle.classList.remove('animate');
+  }, 800);
+});
 </script>
 </body>
 </html>
