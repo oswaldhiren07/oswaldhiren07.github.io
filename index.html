@@ -23,8 +23,8 @@
   --mono: 'DM Mono', monospace;
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'DM Sans', sans-serif;
-
 }
+
 html, body, nav, section, footer,
 #splash, .splash-frame, .splash-frame img,
 .proj-card, .detail-box, .contact-link,
@@ -37,7 +37,6 @@ html, body, nav, section, footer,
     filter 3s ease;
 }
 
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -48,6 +47,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
+
 .theme-toggle {
   border: 1px solid var(--border);
   background: transparent;
@@ -58,37 +58,22 @@ body {
   font-size: 1rem;
   cursor: pointer;
   margin-left: 1rem;
-
   transition:
     transform 2.5s cubic-bezier(0.4, 0, 0.2, 1),
     color 2.2s ease,
     background-color 2.2s ease,
     border-color 2.2s ease;
 }
-/* 🔥 PRESS ANIMATION */
-.theme-toggle.animate {
-  animation: togglePop 0.8s ease;
-}
-
+.theme-toggle.animate { animation: togglePop 0.8s ease; }
 @keyframes togglePop {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  40% {
-    transform: scale(1.25) rotate(120deg);
-  }
-  70% {
-    transform: scale(1.1) rotate(260deg);
-  }
-  100% {
-    transform: scale(1) rotate(360deg);
-  }
+  0%   { transform: scale(1) rotate(0deg); }
+  40%  { transform: scale(1.25) rotate(120deg); }
+  70%  { transform: scale(1.1) rotate(260deg); }
+  100% { transform: scale(1) rotate(360deg); }
 }
+.theme-toggle:hover { transform: translateY(-1px); }
 
-.theme-toggle:hover {
-  transform: translateY(-1px);
-}
-/* NAV */
+/* NAV — transition now 3s to match the whole-page theme fade */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -101,7 +86,7 @@ nav {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
-  transition: background 0.4s ease, border-color 0.4s ease;
+  transition: background 3s ease, border-color 3s ease;
 }
 nav.scrolled { border-bottom-color: var(--border); }
 .nav-logo {
@@ -588,6 +573,7 @@ footer .f-left, footer .f-right {
   pointer-events: none;
   z-index: 1000;
   overflow: hidden;
+  display: none;
 }
 .thon-float-bg span {
   position: absolute;
@@ -595,7 +581,6 @@ footer .f-left, footer .f-right {
   opacity: 0;
   animation: floatDiamond linear infinite;
 }
-
 .thon-float-bg span:nth-child(1)  { left: 4%;  top: 88%; animation-duration: 18s; animation-delay: 0s; }
 .thon-float-bg span:nth-child(2)  { left: 9%;  top: 76%; animation-duration: 22s; animation-delay: 2s; }
 .thon-float-bg span:nth-child(3)  { left: 14%; top: 92%; animation-duration: 20s; animation-delay: 4s; }
@@ -622,22 +607,33 @@ footer .f-left, footer .f-right {
 .thon-float-bg span:nth-child(24) { left: 82%; top: 53%; animation-duration: 24s; animation-delay: 6s; }
 .thon-float-bg span:nth-child(25) { left: 96%; top: 61%; animation-duration: 18s; animation-delay: 2s; }
 @keyframes floatDiamond {
-  0% {
-    transform: translateY(0) translateX(0) scale(0.9);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-40vh) translateX(8px) scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(-100vh) translateX(-6px) scale(0.95);
-    opacity: 0;
-  }
+  0%   { transform: translateY(0) translateX(0) scale(0.9); opacity: 0; }
+  10%  { opacity: 0.6; }
+  50%  { transform: translateY(-40vh) translateX(8px) scale(1); opacity: 0.7; }
+  100% { transform: translateY(-100vh) translateX(-6px) scale(0.95); opacity: 0; }
 }
+
+/* DARK MODE */
+body.dark-mode {
+  --white: #0f1115;
+  --off-white: #171a21;
+  --ink: #f5f5f5;
+  --mid: #b2b2b2;
+  --light: #7f7f7f;
+  --accent: #e06a4b;
+  --border: #2a2f38;
+}
+body.dark-mode .theme-toggle { transform: rotate(540deg); }
+
+/* Dark nav also transitions at 3s — same as the global theme fade */
+body.dark-mode nav {
+  background: rgba(15, 17, 21, 0.68);
+  border-bottom-color: var(--border);
+}
+body.dark-mode .nav-links { background: var(--white); }
+
+/* HAMBURGER */
+.nav-toggle { display: none; }
 
 @media (max-width: 900px) {
   nav { padding: 1.2rem 1.5rem; }
@@ -658,25 +654,7 @@ footer .f-left, footer .f-right {
   .thon-gallery img { height: 240px; }
 }
 
-body.dark-mode {
-  --white: #0f1115;
-  --off-white: #171a21;
-  --ink: #f5f5f5;
-  --mid: #b2b2b2;
-  --light: #7f7f7f;
-  --accent: #e06a4b;
-  --border: #2a2f38;
-}
-body.dark-mode .theme-toggle {
-  transform: rotate(540deg);
-}
-/* 🔥 HAMBURGER MENU */
-.nav-toggle {
-  display: none;
-}
-
 @media (max-width: 600px) {
-
   .nav-toggle {
     display: block;
     font-size: 1.6rem;
@@ -685,11 +663,9 @@ body.dark-mode .theme-toggle {
     color: var(--ink);
     cursor: pointer;
   }
-
   .nav-links {
     position: fixed;
-    top: 72px;
-    left: 0;
+    top: 72px; left: 0;
     width: 100%;
     background: var(--white);
     flex-direction: column;
@@ -699,18 +675,9 @@ body.dark-mode .theme-toggle {
     display: none;
     z-index: 9998;
     border-bottom: 1px solid var(--border);
+    transition: background 3s ease, border-color 3s ease;
   }
-
-  .nav-links.active {
-    display: flex;
-  }
-}
-body.dark-mode nav {
-  background: rgba(15, 17, 21, 0.92);
-  border-bottom-color: var(--border);
-}
-body.dark-mode .nav-links {
-  background: var(--white);
+  .nav-links.active { display: flex; }
 }
 </style>
 </head>
@@ -719,10 +686,7 @@ body.dark-mode .nav-links {
 
 <nav id="nav">
   <a class="nav-logo" href="#splash">D.O.</a>
-
-  
   <button class="nav-toggle" id="navToggle">☰</button>
-
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -732,11 +696,11 @@ body.dark-mode .nav-links {
   </ul>
   <button id="themeToggle" class="theme-toggle">🌙</button>
 </nav>
+
 <div id="main-site">
 
   <!-- SPLASH -->
   <div id="splash">
-
     <div class="splash-frame">
       <img src="images/profile.jpg" alt="Dhiren Oswal" />
     </div>
@@ -774,20 +738,26 @@ body.dark-mode .nav-links {
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <div class="exp-item fade-up">
-  <div class="exp-left">
-    <img src="images/companylogoo.png" class="exp-logo" alt="OD Hydroponics Logo">
-    <div class="exp-date">Oct 2022 – Jun 2025</div>
-    <div class="exp-company">OD.Hydroponics</div>
-    <div class="exp-loc">Ludhiana, India</div>
-  </div>
-  <div class="exp-right">
-    <div class="exp-role">Founder</div>
-    <ul class="exp-bullets">
-      <li>Established a sustainable agriculture initiative focused on hydroponic farming, directing all research, system design, and daily operations.</li>
-      <li>Engineered nutrient solution protocols and assembled functional hydroponic systems, cultivating multiple plant varieties across different growing techniques.</li>
-      <li>Led community outreach and educational sessions to promote awareness of sustainable, soil-free farming methods.</li>
-    </ul>
+    <div class="section-header fade-up">
+      <span class="section-num">02 / Experience</span>
+      <h2 class="section-title">Work History</h2>
+    </div>
+
+    <div class="exp-list">
+      <div class="exp-item fade-up">
+        <div class="exp-left">
+          <img src="images/companylogoo.png" class="exp-logo" alt="OD Hydroponics Logo">
+          <div class="exp-date">Oct 2022 – Jun 2025</div>
+          <div class="exp-company">OD.Hydroponics</div>
+          <div class="exp-loc">Ludhiana, India</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Founder</div>
+          <ul class="exp-bullets">
+            <li>Established a sustainable agriculture initiative focused on hydroponic farming, directing all research, system design, and daily operations.</li>
+            <li>Engineered nutrient solution protocols and assembled functional hydroponic systems, cultivating multiple plant varieties across different growing techniques.</li>
+            <li>Led community outreach and educational sessions to promote awareness of sustainable, soil-free farming methods.</li>
+          </ul>
         </div>
       </div>
 
@@ -1047,20 +1017,20 @@ body.dark-mode .nav-links {
 </section>
 
 <script>
-    (function() {
-  const bg = document.getElementById('thonFloatBg');
-  if (!bg) return;
-  for (let i = 0; i < 60; i++) {
-    const span = document.createElement('span');
-    span.textContent = '💠';
-    span.style.left = (Math.random() * 100) + 'vw';
-    span.style.top = (100 + Math.random() * 20) + 'vh';
-    span.style.animationDuration = (14 + Math.random() * 18) + 's';
-    span.style.animationDelay = '-' + (Math.random() * 30) + 's';
-    span.style.fontSize = (0.7 + Math.random() * 1.1) + 'rem';
-    bg.appendChild(span);
-  }
-})();
+  (function() {
+    const bg = document.getElementById('thonFloatBg');
+    if (!bg) return;
+    for (let i = 0; i < 60; i++) {
+      const span = document.createElement('span');
+      span.textContent = '💠';
+      span.style.left = (Math.random() * 100) + 'vw';
+      span.style.top = (100 + Math.random() * 20) + 'vh';
+      span.style.animationDuration = (14 + Math.random() * 18) + 's';
+      span.style.animationDelay = '-' + (Math.random() * 30) + 's';
+      span.style.fontSize = (0.7 + Math.random() * 1.1) + 'rem';
+      bg.appendChild(span);
+    }
+  })();
 
   window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
@@ -1085,7 +1055,6 @@ body.dark-mode .nav-links {
     banner: 'images/thon-banner.jpg',
     logo2026: 'images/thon-2026-logo.png',
     group2026: 'images/thon-group-2026.jpg'
-
   };
 
   const thonBannerImg = document.getElementById('thonBannerImg');
@@ -1168,37 +1137,34 @@ body.dark-mode .nav-links {
   }
 
   function openThonPage() {
-  if (!thonPage) return;
-  mainSite.classList.add('hidden');
-  detailSection.classList.add('hidden');
-  thonPage.classList.remove('hidden');
-
-  history.pushState({ page: 'thon' }, '', '#thon');
-
-  if (thonBannerImg) thonBannerImg.src = thonAssets.banner;
-  if (thon2026Logo) thon2026Logo.src = thonAssets.logo2026;
-  if (thon2026GroupImg) thon2026GroupImg.src = thonAssets.group2026;
-  document.getElementById('thon2026Btn').classList.remove('active');
-  document.getElementById('thon2027Btn').classList.remove('active');
-  document.getElementById('thon2028Btn').classList.remove('active');
-  if (thon2026Detail) thon2026Detail.classList.add('hidden');
-  stopThonGallery();
-  window.scrollTo(0, 0);
-  document.getElementById('thonFloatBg').style.display = 'block';
-}
-
-  function closeThon() {
-  if (location.hash === '#thon') {
-    history.back();
-    return;
+    if (!thonPage) return;
+    mainSite.classList.add('hidden');
+    detailSection.classList.add('hidden');
+    thonPage.classList.remove('hidden');
+    history.pushState({ page: 'thon' }, '', '#thon');
+    if (thonBannerImg) thonBannerImg.src = thonAssets.banner;
+    if (thon2026Logo) thon2026Logo.src = thonAssets.logo2026;
+    if (thon2026GroupImg) thon2026GroupImg.src = thonAssets.group2026;
+    document.getElementById('thon2026Btn').classList.remove('active');
+    document.getElementById('thon2027Btn').classList.remove('active');
+    document.getElementById('thon2028Btn').classList.remove('active');
+    if (thon2026Detail) thon2026Detail.classList.add('hidden');
+    stopThonGallery();
+    window.scrollTo(0, 0);
+    document.getElementById('thonFloatBg').style.display = 'block';
   }
 
-  if (thonPage) thonPage.classList.add('hidden');
-  mainSite.classList.remove('hidden');
-  stopThonGallery();
-  document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
-  document.getElementById('thonFloatBg').style.display = 'none';
-}
+  function closeThon() {
+    if (location.hash === '#thon') {
+      history.back();
+      return;
+    }
+    if (thonPage) thonPage.classList.add('hidden');
+    mainSite.classList.remove('hidden');
+    stopThonGallery();
+    document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('thonFloatBg').style.display = 'none';
+  }
 
   function loadThon(year) {
     const btn2026 = document.getElementById('thon2026Btn');
@@ -1228,46 +1194,36 @@ body.dark-mode .nav-links {
       setTimeout(() => popup2028.classList.remove('show'), 1400);
     }
   }
+
   window.addEventListener('popstate', () => {
-  if (location.hash === '#thon') {
-    mainSite.classList.add('hidden');
-    detailSection.classList.add('hidden');
-    if (thonPage) thonPage.classList.remove('hidden');
-    document.getElementById('thonFloatBg').style.display = 'block';
-    window.scrollTo(0, 0);
-  } else {
-    if (thonPage) thonPage.classList.add('hidden');
-    detailSection.classList.add('hidden');
-    mainSite.classList.remove('hidden');
-    stopThonGallery();
-    document.getElementById('thonFloatBg').style.display = 'none';
-  }
-});
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.querySelector('.nav-links');
+    if (location.hash === '#thon') {
+      mainSite.classList.add('hidden');
+      detailSection.classList.add('hidden');
+      if (thonPage) thonPage.classList.remove('hidden');
+      document.getElementById('thonFloatBg').style.display = 'block';
+      window.scrollTo(0, 0);
+    } else {
+      if (thonPage) thonPage.classList.add('hidden');
+      detailSection.classList.add('hidden');
+      mainSite.classList.remove('hidden');
+      stopThonGallery();
+      document.getElementById('thonFloatBg').style.display = 'none';
+    }
+  });
 
-navToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
-const themeToggle = document.getElementById('themeToggle');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
 
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-
-  // change icon
-  if (document.body.classList.contains('dark-mode')) {
-    themeToggle.textContent = '☀️';
-  } else {
-    themeToggle.textContent = '🌙';
-  }
-
-  // trigger animation
-  themeToggle.classList.add('animate');
-
-  setTimeout(() => {
-    themeToggle.classList.remove('animate');
-  }, 800);
-});
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    themeToggle.classList.add('animate');
+    setTimeout(() => themeToggle.classList.remove('animate'), 800);
+  });
 </script>
 </body>
 </html>
