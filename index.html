@@ -282,6 +282,72 @@ section {
   transition: background 0.2s ease, color 0.2s ease;
 }
 .skill-tag:hover { background: var(--ink); color: var(--white); }
+.proj-button {
+  width: 100%;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.proj-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.project-detail {
+  padding-top: 7rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.detail-box {
+  border: 1px solid var(--border);
+  background: var(--off-white);
+  padding: 2.5rem;
+}
+
+.detail-sub {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.detail-body {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.9;
+  max-width: 850px;
+}
+
+.detail-actions {
+  margin-top: 2rem;
+}
+
+.detail-btn {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  padding: 0.85rem 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.detail-btn:hover {
+  background: var(--accent);
+  color: var(--white);
+}
 
 /* CONTACT */
 #contact {
@@ -646,9 +712,64 @@ footer .f-left, footer .f-right {
   // Scroll reveal
   const els = document.querySelectorAll('.fade-up');
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
   }, { threshold: 0.1 });
   els.forEach(el => obs.observe(el));
+
+  // Project detail pages
+  const projectButtons = document.querySelectorAll('.proj-button');
+  const projectSection = document.getElementById('projects');
+  const detailSection = document.getElementById('project-detail');
+  const detailTitle = document.getElementById('detail-title');
+  const detailSubtitle = document.getElementById('detail-subtitle');
+  const detailBody = document.getElementById('detail-body');
+  const backButton = document.getElementById('backToProjects');
+
+  const projectData = {
+    arduino: {
+      title: 'Arduino / IoT',
+      subtitle: 'Hydroponics Systems Assembly',
+      body: `This page can show your Arduino and IoT work in more depth. You can talk about
+      the sensors you used, how the monitoring system worked, how you tracked pH and salinity,
+      and what impact it had on hydroponic farming efficiency. You can also add photos, wiring
+      diagrams, outcomes, and tools like Arduino IDE, sensors, and automation logic.`
+    },
+    cad: {
+      title: 'CAD / 3D Print',
+      subtitle: 'Fusion 360 CAD Design',
+      body: `This page can show your CAD and 3D printing work in more detail. Add the types of
+      models you designed, how you used Fusion 360, how you moved from concept to prototype,
+      and what fabrication process you used. You can also include screenshots, renderings,
+      dimensions, tolerances, and final printed outputs.`
+    },
+    leadership: {
+      title: 'Leadership / Education',
+      subtitle: 'STEM Club — Founder & President',
+      body: `This page can explain your leadership experience in depth. You can describe how you
+      founded the STEM club, the activities you planned, how often you ran sessions, the number
+      of students involved, and the impact you made on student engagement. You can also add
+      workshops, events, mentoring, and educational outcomes.`
+    }
+  };
+
+  projectButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const page = button.dataset.page;
+      const data = projectData[page];
+
+      detailTitle.textContent = data.title;
+      detailSubtitle.textContent = data.subtitle;
+      detailBody.textContent = data.body;
+
+      detailSection.classList.remove('hidden');
+      detailSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  backButton.addEventListener('click', () => {
+    detailSection.classList.add('hidden');
+    projectSection.scrollIntoView({ behavior: 'smooth' });
+  });
 </script>
-</body>
-</html>
