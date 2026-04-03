@@ -695,8 +695,8 @@ footer .f-right {
   margin: 1.5rem auto 1rem auto;
   padding: 2.5rem 2rem;
   border-radius: 28px;
-  background: transparent;
-  border: none;
+  background: linear-gradient(180deg, #f8f7f4 0%, #f2f0eb 100%);
+  border: 1px solid var(--border);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -845,13 +845,10 @@ footer .f-right {
   object-fit: cover;
   display: block;
 }
-#thon-page {
-  position: fixed;
-  overflow: hidden;
-}
+
 
 .thon-float-bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
@@ -861,8 +858,9 @@ footer .f-right {
 .thon-float-bg span {
   position: absolute;
   font-size: 0.9rem;
-  opacity: 0.16;
+  opacity: 0.22;
   animation: floatDiamond linear infinite;
+  filter: blur(0.2px);
 }
 
 .thon-float-bg span:nth-child(1)  { left: 6%;  top: 85%; animation-duration: 18s; animation-delay: 0s; }
