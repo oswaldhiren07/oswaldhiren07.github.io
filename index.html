@@ -1036,6 +1036,10 @@ footer .f-right {
   const detailBody = document.getElementById('detail-body');
   const backButton = document.getElementById('backToProjects');
 
+  const thonPage = document.getElementById('thon-page');
+  const thonSubtitle = document.getElementById('thon-subtitle');
+  const thonBody = document.getElementById('thon-body');
+
   const projectData = {
     arduino: {
       title: 'Arduino / IoT',
@@ -1056,7 +1060,18 @@ footer .f-right {
 
   function showMainSite() {
     detailSection.classList.add('hidden');
+    if (thonPage) thonPage.classList.add('hidden');
     mainSite.classList.remove('hidden');
+  }
+
+  function goToSection(target) {
+    showMainSite();
+    requestAnimationFrame(() => {
+      const el = document.querySelector(target);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   }
 
   projectButtons.forEach(button => {
@@ -1070,13 +1085,13 @@ footer .f-right {
 
       mainSite.classList.add('hidden');
       detailSection.classList.remove('hidden');
+      if (thonPage) thonPage.classList.add('hidden');
       window.scrollTo(0, 0);
     });
   });
 
   backButton.addEventListener('click', () => {
-    showMainSite();
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+    goToSection('#projects');
   });
 
   document.querySelectorAll('.nav-links a, .nav-logo').forEach(link => {
@@ -1084,65 +1099,43 @@ footer .f-right {
       const target = link.getAttribute('href');
       if (target && target.startsWith('#')) {
         e.preventDefault();
-        showMainSite();
-        const el = document.querySelector(target);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        goToSection(target);
       }
     });
   });
-  // THON PAGE LOGIC
-const thonPage = document.getElementById('thon-page');
-const thonSubtitle = document.getElementById('thon-subtitle');
-const thonBody = document.getElementById('thon-body');
 
-function openThonPage() {
-  mainSite.classList.add('hidden');
-  detailSection.classList.add('hidden'); // hide project page if open
-  thonPage.classList.remove('hidden');
-  loadThon('2026');
-  window.scrollTo(0, 0);
-}
-
-function closeThon() {
-  thonPage.classList.add('hidden');
-  mainSite.classList.remove('hidden');
-}
-
-function loadThon(year) {
-  if (year === '2026') {
-    thonSubtitle.textContent = "THON 2026 — Second-in-Command";
-
-    thonBody.textContent = `
-Served as Second-in-Command for the Rules & Regulations Committee during THON 2026.
-
-Oversaw policy enforcement and operations inside the Bryce Jordan Center, working closely with captains and committee members to ensure everything ran smoothly.
-
-Led security briefings, trained members in advance, and supported real-time operations including portal closures, metal detectors, and pass sweeps.
-
-Acted as a key link between leadership and committee members during high-pressure situations.
-    `;
+  function openThonPage() {
+    mainSite.classList.add('hidden');
+    detailSection.classList.add('hidden');
+    if (thonPage) {
+      thonPage.classList.remove('hidden');
+      loadThon('2026');
+    }
+    window.scrollTo(0, 0);
   }
 
-  if (year === '2027') {
-    thonSubtitle.textContent = "THON 2027 — Planned Growth";
-
-    thonBody.textContent = `
-Plan to take on a higher leadership role within THON, managing larger teams and contributing more directly to event operations and logistics.
-
-Focus will be on improving coordination, efficiency, and execution at scale.
-    `;
+  function closeThon() {
+    goToSection('#experience');
   }
 
-  if (year === '2028') {
-    thonSubtitle.textContent = "THON 2028 — Long-Term Vision";
+  function loadThon(year) {
+    if (!thonSubtitle || !thonBody) return;
 
-    thonBody.textContent = `
-Aim to step into a senior leadership position within THON, helping oversee major parts of event execution and contributing significantly to fundraising and organizational impact.
+    if (year === '2026') {
+      thonSubtitle.textContent = "THON 2026 — Second-in-Command";
+      thonBody.textContent = `Served as Second-in-Command for the Rules & Regulations Committee during THON 2026. Oversaw policy enforcement and operations inside the Bryce Jordan Center, worked closely with captains and committee members, led security briefings, and supported portal closures, metal detectors, and pass sweeps.`;
+    }
 
-Goal is to lead with both operational strength and strategic thinking.
-    `;
+    if (year === '2027') {
+      thonSubtitle.textContent = "THON 2027 — Planned Growth";
+      thonBody.textContent = `Plan to take on a higher leadership role within THON, manage larger teams, and contribute more directly to event operations and logistics.`;
+    }
+
+    if (year === '2028') {
+      thonSubtitle.textContent = "THON 2028 — Long-Term Vision";
+      thonBody.textContent = `Aim to step into a senior leadership position within THON, help oversee major parts of event execution, and contribute significantly to fundraising and organizational impact.`;
+    }
   }
-}
 </script>
 </body>
 </html>
