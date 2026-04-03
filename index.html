@@ -689,26 +689,7 @@ footer .f-right {
   justify-content: flex-start;
   gap: 2.5rem;
 }
-.thon-banner::before {
-  content: "#FTK #FTK #FTK #FTK #FTK #FTK #FTK #FTK #FTK #FTK ";
-  position: absolute;
-  inset: 0;
 
-  font-family: var(--mono);
-  font-size: 3rem;
-  line-height: 2.5rem;
-  letter-spacing: 1.5rem;
-
-  color: rgba(0, 0, 0, 0.05);
-
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-
-  pointer-events: none;
-  z-index: 0;
-}
 .thon-banner {
   width: min(70%, 1100px);
   margin: 1.5rem auto 1rem auto;
@@ -864,7 +845,46 @@ footer .f-right {
   object-fit: cover;
   display: block;
 }
+#thon-page {
+  position: relative;
+  overflow: hidden;
+}
 
+#thon-page::before {
+  content: "#FTK #FTK #FTK #FTK #FTK #FTK #FTK #FTK #FTK #FTK ";
+  position: fixed;
+  inset: -50%;
+
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 1.5rem;
+  line-height: 2rem;
+
+  color: rgba(0, 0, 0, 0.025);
+
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  transform: rotate(-15deg);
+
+  animation: ftkDrift 60s linear infinite;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes ftkDrift {
+  from {
+    transform: rotate(-15deg) translateY(0);
+  }
+  to {
+    transform: rotate(-15deg) translateY(-200px);
+  }
+}
+#thon-page * {
+  position: relative;
+  z-index: 1;
+}
 @media (max-width: 700px) {
   .thon-banner {
     width: 100%;
